@@ -1,4 +1,4 @@
 [
-    { "firstName": "Stefania", "lastName": "Popa", "links": "#" },
-    { "firstName": "Ion", "lastName": "Ionescu", "links": "#" },
+    { "firstName": "Stefania", "lastName": "Popa", "gitHub": "stefaniapopa" },
+    { "firstName": "Ion", "lastName": "Ionescu", "gitHub": "#" },
 ]
