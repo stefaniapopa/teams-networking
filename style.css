@@ -1,7 +1,7 @@
 .fa {
     padding: 5px ;
     font-size: 50px;
-    width: 25px;
+    width: 18px;
     text-align: center;
     text-decoration: none;
     border-radius: 50%;
@@ -17,5 +17,6 @@
   }
 
   .fa-github:before{
-      font-size: 20px;
+    color:#6e5494;
+    font-size: 20px;
   }
