@@ -1,15 +1,15 @@
 console.log('test script');
 
-function insertPersons(person){
+function insertPersons(person) {
     var tbody = document.querySelector('#list tbody');
     tbody.innerHTML = getPersonsHtml(person);
 }
 
-function getPersonsHtml(person){
+function getPersonsHtml(person) {
     return getPersonHtml(person[0]) + getPersonHtml(person[1]);
 }
 
-function getPersonHtml(person){ 
+function getPersonHtml(person) {
     var link = person.link;
     return `<tr>
         <td>${person.firstName}</td>
@@ -21,11 +21,11 @@ function getPersonHtml(person){
 
 fetch('team.json')
     .then(res => res.json())
-    .then(data =>  {
-            insertPersons(data);
+    .then(data => {
+        insertPersons(data);
     });
-   
-function addRow(){
+
+function addRow() {
     var newRaw = document.getElementById('list');
     var firstName = document.getElementById("firstName").value;
     var lastName = document.getElementById("lastName").value;
@@ -39,7 +39,20 @@ function addRow(){
     cell3.innerHTML = link;
 }
 
+// function eventBtn(){
+//     var input = document.getElementById('link');
+//     input.addEventListener('keyup', function(event) {
+//     if (event.keyCode === 13) {
+//         event.preventDefault();
+//         document.getElementById("myBtn").click();
+//     }
+//     else if (event.keyCode === 8) {
+//         event.preventDefault();
+//         document.getElementById("dlt").click();
+//     }
+// });
+// }
+
 function deleteRow() {
     document.getElementById("list").deleteRow(-1);
 }
- 

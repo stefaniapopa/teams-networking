@@ -13,7 +13,7 @@
         <input type="text" id="firstName" placeholder="First Name">
         <input type="text" id="lastName" placeholder="Last Name">
         <input type="text" id="link" placeholder="Links">
-        <button type="reset" onclick="addRow()" value="Reset">Add</button>
+        <button type="reset" id="myBtn" onclick="addRow(), eventBtn()" value="Reset">Add</button>
     </form>
     <table id="list">
         <thead>
@@ -23,7 +23,7 @@
         </thead>
         <tbody></tbody>
     </table>
-    <button type="button" class="delete-row" onclick="deleteRow()">Delete Row</button>
+    <button type="button" id="dlt" class="delete-row" onclick="deleteRow()">Delete Row</button>
     </div>
 
     <script src="function.js"></script>
