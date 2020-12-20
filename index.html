@@ -9,14 +9,13 @@
 
 <body>
     <h1>Team Networking</h1>
-
+    <form>
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <input type="text" id="link" placeholder="Links">
+        <button type="reset" onclick="addRow()" value="Reset">Add</button>
+    </form>
     <table id="list">
-        <form>
-            <input type="text" id="firstName" placeholder="First Name">
-            <input type="text" id="lastName" placeholder="Last Name">
-            <input type="text" id="link" placeholder="Links">
-            <button type="button" onclick="insertPersons()">Add</button>
-        </form>
         <thead>
             <th>First Name</th>
             <th>Last Name</th>

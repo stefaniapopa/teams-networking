@@ -2,16 +2,6 @@ console.log('test script');
 
 function insertPersons(person){
     var tbody = document.querySelector('#list tbody');
-    var firstName = document.getElementById("firstName").value;
-    var lastName = document.getElementById("lastName").value;
-    var link = document.getElementById("link").value;
-    var row = tbody.insertRow(-1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    cell1.innerHTML = firstName;
-    cell2.innerHTML = lastName;
-    cell3.innerHTML = link;
     tbody.innerHTML = getPersonsHtml(person);
 }
 
@@ -34,8 +24,21 @@ fetch('team.json')
     .then(data =>  {
             insertPersons(data);
     });
+   
+function addRow(){
+    var newRaw = document.getElementById('list');
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var link = document.getElementById("link").value;
+    var row = newRaw.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    cell1.innerHTML = firstName;
+    cell2.innerHTML = lastName;
+    cell3.innerHTML = link;
+}
 
-      
 function deleteRow() {
     document.getElementById("list").deleteRow(-1);
 }
