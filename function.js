@@ -1,12 +1,15 @@
 console.log('test script');
 
-function insertPersons(person) {
+function insertPersons(persons) {
     var tbody = document.querySelector('#list tbody');
-    tbody.innerHTML = getPersonsHtml(person);
+    tbody.innerHTML = getPersonsHtml(persons);
 }
 
-function getPersonsHtml(person) {
-    return getPersonHtml(person[0]) + getPersonHtml(person[1]);
+function getPersonsHtml(persons) {
+    var htmlElements = persons.map(function(person){
+        return getPersonHtml(person);
+    });
+    return htmlElements.join('');
 }
 
 function getPersonHtml(person) {
