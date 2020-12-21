@@ -14,16 +14,39 @@ function getPersonHtml(person) {
     return `<tr>
         <td>${person.firstName}</td>
         <td>${person.lastName}</td>
-        <td><a target="_blank" href="https://github.com/${person.gitHub}" class="fa fa-github" aria-hidden="true"></a></td>
-        
+        <td><a target="_blank" href="https://github.com/${person.gitHub}" class="fa fa-github" aria-hidden="true"> </a>
+        <a target="_blank" href="https://www.linkedin.com/in/${link}/" class="fa fa-linkedin"></a></td>
     </tr>`;
 }
+
+let allPersons = [];
 
 fetch('team.json')
     .then(res => res.json())
     .then(data => {
+        allPersons = data;
         insertPersons(data);
     });
+
+function searchPersons(text){
+    console.warn('ai cautat', text, allPersons);
+    
+    return allPersons.filter(person =>{
+        console.log(person.firstName);
+        return person.firstName == text;
+    });
+}
+
+const search = document.getElementById('search');
+search.addEventListener('input', e => {
+    const text = e.target.value
+    
+    const filtrate = searchPersons(text);
+
+    insertPersons(filtrate);
+})
+
+
 
 function addRow() {
     var newRaw = document.getElementById('list');
@@ -39,19 +62,19 @@ function addRow() {
     cell3.innerHTML = link;
 }
 
-// function eventBtn(){
-//     var input = document.getElementById('link');
-//     input.addEventListener('keyup', function(event) {
-//     if (event.keyCode === 13) {
-//         event.preventDefault();
-//         document.getElementById("myBtn").click();
-//     }
-//     else if (event.keyCode === 8) {
-//         event.preventDefault();
-//         document.getElementById("dlt").click();
-//     }
-// });
-// }
+
+var input = document.getElementById('link');
+input.addEventListener('keyup', function (event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("myBtn").click();
+    }
+    else if (event.keyCode === 8) {
+        event.preventDefault();
+        document.getElementById("dlt").click();
+    }
+});
+
 
 function deleteRow() {
     document.getElementById("list").deleteRow(-1);
