@@ -33,7 +33,7 @@ function searchPersons(text){
     
     return allPersons.filter(person =>{
         console.log(person.firstName);
-        return person.firstName == text;
+        return person.firstName.indexOf(text) > -1;
     });
 }
 
