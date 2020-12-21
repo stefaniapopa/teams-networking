@@ -33,7 +33,8 @@ function searchPersons(text){
     console.warn('ai cautat', text, allPersons);
     return allPersons.filter(person =>{
         console.log(person.firstName);
-        return person.firstName.toLowerCase().indexOf(text) > -1;
+        return person.firstName.toLowerCase().indexOf(text) > -1 ||
+        person.lastName.toLowerCase().indexOf(text) > -1 ;
     });
 }
 
