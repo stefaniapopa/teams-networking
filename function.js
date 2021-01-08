@@ -1,4 +1,23 @@
-console.log('test script');
+const API = {
+    CREATE: {
+        URL: "create.json",
+        METHOD: "GET" // POST
+    },
+    READ: {
+        URL: "team.json",
+        METHOD: "GET"
+    },
+    UPDATE: {
+        URL: "",
+        METHOD: "GET"
+    },
+    DELETE: {
+        URL: "",
+        METHOD: "GET"
+    }
+};
+
+API.READ.URL
 
 function insertPersons(persons) {
     var tbody = document.querySelector('#list tbody');
@@ -16,17 +35,22 @@ function getPersonHtml(person) {
         <td>${person.lastName}</td>
         <td><a target="_blank" href="https://github.com/${person.gitHub}" class="fa fa-github" aria-hidden="true"> </a>
         <a target="_blank" href="https://www.linkedin.com/in/${link}/" class="fa fa-linkedin"></a></td>
+        <td></td>
     </tr>`;
 }
 
 let allPersons = [];
 
-fetch('team.json')
+function loadList() {
+    fetch(API.READ.URL)
     .then(res => res.json())
     .then(data => {
         allPersons = data;
         insertPersons(data);
     });
+}
+
+loadList();
 
 function searchPersons(text){
     text = text.toLowerCase();
@@ -44,38 +68,39 @@ search.addEventListener('input', e => {
     const filtrate = searchPersons(text);
 
     insertPersons(filtrate);
-})
+});
 
+function saveTeamMembers(){
+    const firstName = document.querySelector('input[name=firstName]').value;
+    const lastName = document.querySelector('input[name=lastName]').value;
+    const gitHub = document.querySelector('input[name=gitHub]').value;
 
+    const person ={
+        firstName,
+        lastName,
+        gitHub
+    };
+    console.log('saving', person);
 
-function addRow() {
-    var newRaw = document.getElementById('list');
-    var firstName = document.getElementById("firstName").value;
-    var lastName = document.getElementById("lastName").value;
-    var link = document.getElementById("link").value;
-    var row = newRaw.insertRow(-1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    cell1.innerHTML = firstName;
-    cell2.innerHTML = lastName;
-    cell3.innerHTML = link;
+    fetch(API.CREATE.URL, {
+        method: API.CREATE.METHOD,
+        body: API.CREATE.METHOD === "GET" ?  null : JSON.stringify(person)
+    })
+        .then(res => res.json())
+        .then(r => {
+            console.warn(r);
+            if( r.success){
+                alert('saving data..., please wait until we are ready.');
+                    console.log("refresh list");
+                    loadList();               
+            
+            } 
+        });
 }
 
-
-var input = document.getElementById('link');
-input.addEventListener('keyup', function (event) {
-    if (event.keyCode === 13) {
-        event.preventDefault();
-        document.getElementById("myBtn").click();
-    }
-    else if (event.keyCode === 8) {
-        event.preventDefault();
-        document.getElementById("dlt").click();
-    }
+const saveBtn = document.querySelector('#list button');
+saveBtn.addEventListener('click', () => {
+    saveTeamMembers();
 });
 
 
-function deleteRow() {
-    document.getElementById("list").deleteRow(-1);
-}
