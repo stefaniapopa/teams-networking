@@ -34,6 +34,7 @@ function getPersonHtml(person) {
         <td><a target="_blank" href="https://github.com/${gitHub}" class="fa fa-github" aria-hidden="true"> </a>
         <td>
             <a href="#" class="delete-row" data-id="${person.id}">&#10006;</a>
+            <a href="#" class="edit-row" data-id="${person.id}">&#9998;</a>
         </td>
     </tr>`;
 }
@@ -70,7 +71,7 @@ function saveTeamMembers() {
         lastName,
         gitHub: gitHub
     };
-    console.log('saving', person);
+    console.log('saving', person, JSON.stringify(person));
 
     fetch(API.CREATE.URL, {
         method: API.CREATE.METHOD,
@@ -84,25 +85,31 @@ function saveTeamMembers() {
             console.warn(r);
             if (r.success) {
                 loadList();
-
             }
         });
 }
 
 function deleteTeamMember(id) {
-    fetch("http://localhost:3000/teams-json/delete", {
-        method: "DELETE",
+    fetch(API.DELETE.URL, {
+        method: API.DELETE.METHOD,
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ id })
-    });
+    })
+        .then(res => res.json())
+        .then(r => {
+            console.warn(r);
+            if (r.success) {
+                loadList();
+            }
+        });
 }
 
 function addEventListeners() {
     const search = document.getElementById('search');
     search.addEventListener('input', e => {
-        const text = e.target.value
+        const text = e.target.value;
 
         const filtrate = searchPersons(text);
         console.log({ filtrate })
@@ -111,12 +118,12 @@ function addEventListeners() {
     });
 
     const saveBtn = document.querySelector('#list tfoot button');
-    saveBtn.addEventListener('click', () => {
+    saveBtn.addEventListener("click", () => {
         saveTeamMembers();
     });
 
     const table = document.querySelector('#list tbody');
-    table.addEventListener('click', (e) => {
+    table.addEventListener("click", (e) => {
         const target = e.target;
         if (e.target.matches("a.delete-row")) {
             const id = target.getAttribute("data-id");
